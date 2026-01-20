@@ -279,7 +279,15 @@ public class StreamApiProgram{
 //	System.out.println(collect12);
 	
 	int maxInArray = Arrays.stream(arr).max().orElse(0);
-	System.out.println(maxInArray);
+//	System.out.println(maxInArray);
+	
+	String removedDuplicate1 = Arrays.stream(duplicatedValue.split("")).distinct().reduce("", (s1,s2) -> s1 + s2);
+	System.out.println(removedDuplicate1);
+	
+//	or
+	
+	String removedDuplicate2 = Arrays.stream(duplicatedValue.split("")).distinct().collect(Collectors.joining());
+	System.out.println(removedDuplicate2);
 	
 	}
 }
