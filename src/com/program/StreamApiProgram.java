@@ -282,12 +282,24 @@ public class StreamApiProgram{
 //	System.out.println(maxInArray);
 	
 	String removedDuplicate1 = Arrays.stream(duplicatedValue.split("")).distinct().reduce("", (s1,s2) -> s1 + s2);
-	System.out.println(removedDuplicate1);
+//	System.out.println(removedDuplicate1);
 	
 //	or
 	
 	String removedDuplicate2 = Arrays.stream(duplicatedValue.split("")).distinct().collect(Collectors.joining());
-	System.out.println(removedDuplicate2);
+//	System.out.println(removedDuplicate2);
+	
+	Map<String, Double> datatat = datas2.stream().collect(Collectors.groupingBy(e->e.getDept(), Collectors.reducing(Double.MIN_VALUE, e->e.getSalary(), Double::max)));
+//	System.out.println(datatat);
+	
+	List<String> datatata = Arrays.stream(duplicatedValue.split("")).distinct().toList();
+//	System.out.println(datatata);
+	
+	Map<String, Long> collect13 = Arrays.stream(duplicatedValue.split("")).collect(Collectors.groupingBy(e->e, Collectors.counting()));
+//	System.out.println(collect13);
+	
+	Map<String, Integer> collect14 = str.stream().collect(Collectors.groupingBy(e->e, Collectors.reducing(0, e->e.length(), Integer::sum)));
+//	System.out.println(collect14);
 	
 	}
 }
