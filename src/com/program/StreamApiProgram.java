@@ -2,13 +2,16 @@ package com.program;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Employee{
 	private String name;
@@ -64,11 +67,35 @@ public class StreamApiProgram{
 			obj.add(data);
 		}
 		
+		List<Integer> sssssssssss = Arrays.stream(arr).boxed().sorted(Comparator.reverseOrder()).toList();
+//		System.out.println(sssssssssss);
+		
+		String sss = "HappynewYear";
+		String dist = Arrays.stream(sss.split("")).distinct().collect(Collectors.joining());
+//		System.out.println(dist);
+		
+		Set<String> alreadyAddedChars = new HashSet<>();
+		Set<String> onlyDuplicateValues = Arrays.stream(sss.split("")).filter(e -> !alreadyAddedChars.add(e)).collect(Collectors.toSet());	
+//		System.out.println(onlyDuplicateValues.stream().collect(Collectors.joining()));
+		
+		Set<String> removeDup = new LinkedHashSet<>();
+		for(int i=0; i<sss.length(); i++) {
+			removeDup.add(String.valueOf(sss.charAt(i)));
+		}
+		
+//		System.out.println(removeDup.stream().collect(Collectors.joining()));
+		
+		Map<Integer, Integer> squareNumbersss = Arrays.stream(arr).boxed().distinct().sorted().collect(Collectors.toMap(e->e, e->e*e));
+//		System.out.println(squareNumbersss);
+		
 		// *** boxed() is used to convert primitive datatype to wrapper class, it supports only int -> Integer, long -> Long, double -> Double
 		List<Integer> arrayToList = Arrays.stream(arr).boxed().toList();
 		
 		Integer fourthLargetNumber = arrayToList.stream().distinct().sorted(Comparator.reverseOrder()).skip(3).findFirst().orElseThrow();
 //		System.out.println(fourthLargetNumber);
+		
+		Integer firstLargestNo = Arrays.stream(arr).boxed().sorted(Comparator.reverseOrder()).findFirst().orElse(0);
+//		System.out.println(firstLargestNo);
 		
 		int max = obj.stream().reduce(Integer.MIN_VALUE, Integer::max);
 //		System.out.println(max);
@@ -236,7 +263,7 @@ public class StreamApiProgram{
 	Integer data19 = Arrays.stream(arr).reduce(Integer.MIN_VALUE, Integer::max);
 //	System.out.println(data19);
 	
-	List<String> str = List.of("Prem", "prem", "India", "Karnatakaaa", "Premchand");
+	List<String> str = List.of("Premmmmmmmmmmmmmmmmmmmmmm", "prem", "India", "Karnatakaaa", "Premchand");
 	Map<String, Integer> collect3 = str.stream().map(String::toLowerCase).distinct().collect(Collectors.groupingBy(String::toUpperCase, 
 			Collectors.reducing(0, e->e.length(), Integer::sum)));
 //	System.out.println(collect3);
@@ -300,6 +327,71 @@ public class StreamApiProgram{
 	
 	Map<String, Integer> collect14 = str.stream().collect(Collectors.groupingBy(e->e, Collectors.reducing(0, e->e.length(), Integer::sum)));
 //	System.out.println(collect14);
+	
+	Map<String, Double> highestSalByDept = datas2.stream().collect(Collectors.groupingBy(Employee::getDept, Collectors.reducing(Double.MIN_VALUE, Employee::getSalary, Double::max)));
+//	System.out.println(highestSalByDept);
+	
+	String longestStringgg = str.stream().reduce((x, y) -> y.length() > x.length() ? y : x).orElse("");
+//	System.out.println(longestStringgg);
+	
+	String string = "abcdabceabcfabchab";
+	String subStr = "abc";
+	int count = 0;
+	string = string.replaceAll(subStr, "z");
+	
+	for(int i = 0; i < string.length(); i++) {
+		if(string.charAt(i) == 'z') {
+			count++;
+		}
+	}
+//	System.out.println(count);
+	
+	int[] someArray = {2,7,3,8,5,1,9};
+	int targetSum = 10, counts = 0;
+	
+	for(int i=0; i<someArray.length; i++) {
+		for(int j=i+1; j<someArray.length; j++) {
+			if(someArray[i] + someArray[j] == targetSum) {
+//				System.out.println(someArray[i] +" "+ someArray[j]);
+				counts++;
+			}
+		}
+	}
+//	System.out.println(counts);
+	
+	
+	int[] missingArr = {3,0,1,2,6,4};
+	Arrays.sort(missingArr);
+	
+	for(int i = 0; i < missingArr.length; i++) {
+		if(missingArr[i] != i) {
+//			System.out.println(i);
+		}
+	}
+	
+	String repeatingChar = "Spring boot";
+	StringBuilder nonRepeatingChar = new StringBuilder();
+	for(int i = 0; i<repeatingChar.length(); i++) {
+		char c1 = repeatingChar.charAt(i);
+		char c2 = repeatingChar.charAt(i+1);
+		if(c1 != c2) {
+			nonRepeatingChar.append(c1);
+		}else {
+			break;
+		}
+	}
+	System.out.println(nonRepeatingChar);
+	
+	for(int i = 0; i<repeatingChar.length(); i++) {
+		char c1 = repeatingChar.charAt(i);
+		char c2 = repeatingChar.charAt(i+1);
+		
+		if(c1 == c2) {
+			System.out.println(repeatingChar.charAt(i-1));
+			break;
+		}
+	}
+	
 	
 	}
 }
