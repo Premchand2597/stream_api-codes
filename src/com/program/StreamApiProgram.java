@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -380,17 +381,57 @@ public class StreamApiProgram{
 			break;
 		}
 	}
-	System.out.println(nonRepeatingChar);
+//	System.out.println(nonRepeatingChar);
 	
 	for(int i = 0; i<repeatingChar.length(); i++) {
 		char c1 = repeatingChar.charAt(i);
 		char c2 = repeatingChar.charAt(i+1);
 		
 		if(c1 == c2) {
-			System.out.println(repeatingChar.charAt(i-1));
+//			System.out.println(repeatingChar.charAt(i-1));
 			break;
 		}
 	}
+	
+	
+	List<String> simpleGetData = new ArrayList<>();
+	String[] adc = {"Hello world", "Prem chand", "Hi baby"};
+	for(String i : adc) {
+		String collect15 = Arrays.stream(i.split(" ")).collect(Collectors.joining(","));
+		simpleGetData.add(collect15);
+	}
+//	System.out.println(simpleGetData);
+	
+	// or
+	
+	List<String> collect15 = Arrays.stream(adc).flatMap(strrr->Arrays.stream(strrr.split(" "))).collect(Collectors.toList());
+//	System.out.println(collect15);
+	
+	
+	List<Student> studentObj = List.of(
+				new Student("Prem", List.of("1234567890", "0987654321")),
+				new Student("Guru", List.of("9898775676", "6758787788", "578575878")),
+				new Student("Raj", List.of("787587788", "5435435365"))
+				);
+	
+	List<Student> studentObjWithNickNames = List.of(
+			new Student("Prem", List.of("1234567890", "0987654321"), List.of("Chand", "Handyy")),
+			new Student("Guru", List.of("9898775676", "6758787788", "578575878"), List.of("Gu", "Dan")),
+			new Student("Raj", List.of("787587788", "5435435365"), List.of("Har", "mann"))
+			);
+	
+	Map<String, List<String>> collect16 = studentObj.stream().collect(Collectors.groupingBy(Student::getName, Collectors.flatMapping(e->e.getPhone().stream(), 
+																																		Collectors.toList())));
+	System.out.println(collect16);
+	
+	List<Integer> list = studentObjWithNickNames.stream().flatMap(e->e.getNickNames().stream()).toList().stream().map(e->e.length()).toList();
+	System.out.println(list);
+	
+	Map<String, Integer> collect17 = studentObjWithNickNames.stream().flatMap(e->e.getNickNames().stream()).collect(Collectors.toMap(e->e, e->e.length()));
+	System.out.println(collect17);
+	
+	List<String> list2 = studentObjWithNickNames.stream().flatMap(e->e.getNickNames().stream()).map(e->e.toUpperCase()).toList();
+	System.out.println(list2);
 	
 	
 	}
