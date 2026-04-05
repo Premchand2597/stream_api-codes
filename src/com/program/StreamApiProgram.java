@@ -63,6 +63,17 @@ public class StreamApiProgram{
 		
 		int arr[] = {23, 23, 45, 34, 12, 12, 56, 67, 74};
 		
+		int maxx = Arrays.stream(arr).max().orElse(0);
+//		System.out.println(maxx);
+		
+		int min = Arrays.stream(arr).min().orElse(0);
+//		System.out.println(min);
+		
+		int sum = Arrays.stream(arr).sum();
+//		System.out.println(sum);
+		
+		Arrays.stream(arr).boxed().sorted(Comparator.reverseOrder()).limit(3).forEach(System.out::println);
+		
 		List<Integer> obj = new ArrayList<Integer>();
 		for(int data : arr) {
 			obj.add(data);
@@ -407,6 +418,9 @@ public class StreamApiProgram{
 	List<String> collect15 = Arrays.stream(adc).flatMap(strrr->Arrays.stream(strrr.split(" "))).collect(Collectors.toList());
 //	System.out.println(collect15);
 	
+	Stream<String> stream = Arrays.stream(adc);
+	System.out.println(stream.flatMap(e->Arrays.stream(e.split(" "))).toList());
+	
 	
 	List<Student> studentObj = List.of(
 				new Student("Prem", List.of("1234567890", "0987654321")),
@@ -420,18 +434,33 @@ public class StreamApiProgram{
 			new Student("Raj", List.of("787587788", "5435435365"), List.of("Har", "mann"))
 			);
 	
+	List<Integer> list3 = studentObjWithNickNames.stream().map(Student::getNickNames).flatMap(e->e.stream()).map(e->e.length()).toList();
+	System.out.println(list3);
+	
 	Map<String, List<String>> collect16 = studentObj.stream().collect(Collectors.groupingBy(Student::getName, Collectors.flatMapping(e->e.getPhone().stream(), 
 																																		Collectors.toList())));
-	System.out.println(collect16);
+//	System.out.println(collect16);
 	
 	List<Integer> list = studentObjWithNickNames.stream().flatMap(e->e.getNickNames().stream()).toList().stream().map(e->e.length()).toList();
-	System.out.println(list);
+//	System.out.println(list);
 	
 	Map<String, Integer> collect17 = studentObjWithNickNames.stream().flatMap(e->e.getNickNames().stream()).collect(Collectors.toMap(e->e, e->e.length()));
-	System.out.println(collect17);
+	Map<String, Integer> collect18 = studentObjWithNickNames.stream().flatMap(e->e.getNickNames().stream()).toList().stream().collect(Collectors.toMap(e->e, e->e.length()));
+//	System.out.println(collect18);
 	
 	List<String> list2 = studentObjWithNickNames.stream().flatMap(e->e.getNickNames().stream()).map(e->e.toUpperCase()).toList();
-	System.out.println(list2);
+//	System.out.println(list2);
+	
+	String gg = "Hello world";
+	String subGG = "world";
+	gg = gg.replace(subGG, "K");
+	boolean isPre = false;
+	for(int i=0; i<gg.length(); i++) {
+		if(gg.charAt(i) == 'K') {
+			isPre = true;
+		}
+	}
+//	System.out.println(isPre);
 	
 	
 	}
